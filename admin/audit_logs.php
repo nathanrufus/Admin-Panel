@@ -8,15 +8,24 @@
     </tr>
     <?php
     include '../includes/db.php';
-    $query = "SELECT * FROM audit_logs";
-    $result = mysqli_query($conn, $query);
-    while ($row = mysqli_fetch_assoc($result)) {
-        echo "<tr>
-                <td>{$row['id']}</td>
-                <td>{$row['action']}</td>
-                <td>{$row['date']}</td>
-              </tr>";
+
+    try {
+        $query = "SELECT * FROM audit_logs";
+        $stmt = $conn->query($query);
+        $audit_logs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($audit_logs as $row) {
+            echo "<tr>
+                    <td>{$row['id']}</td>
+                    <td>{$row['action']}</td>
+                    <td>{$row['date']}</td>
+                  </tr>";
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
     }
+
+    $conn = null;
     ?>
 </table>
 <?php include '../includes/footer.php'; ?>
