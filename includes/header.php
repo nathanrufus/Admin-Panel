@@ -1,5 +1,5 @@
 <?php
-// include '../includes/session_check.php';
+include '../includes/session_check.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -108,8 +108,6 @@
             </button>
             <div class="dropdown-content">
                 <a href="/Admin-Panel/admin/add_department.php">Add Department</a>
-                <a href="/Admin-Panel/admin/edit_department.php">Edit Department</a>
-                <a href="/Admin-Panel/admin/delete_department.php">Delete Department</a>
                 <a href="/Admin-Panel/admin/view_departments.php">View Departments</a>
             </div>
         </div>
@@ -120,8 +118,6 @@
             </button>
             <div class="dropdown-content">
                 <a href="/Admin-Panel/admin/add_event.php">Add Event</a>
-                <a href="/Admin-Panel/admin/edit_event.php">Edit Event</a>
-                <a href="/Admin-Panel/admin/delete_event.php">Delete Event</a>
                 <a href="/Admin-Panel/admin/view_events.php">View Events</a>
             </div>
         </div>
@@ -132,8 +128,6 @@
             </button>
             <div class="dropdown-content">
                 <a href="/Admin-Panel/admin/manage_tickets.php">Manage Tickets</a>
-                <a href="/Admin-Panel/admin/respond_ticket.php">Respond to Tickets</a>
-                <a href="/Admin-Panel/admin/view_ticket_history.php">View Ticket History</a>
             </div>
         </div>
 

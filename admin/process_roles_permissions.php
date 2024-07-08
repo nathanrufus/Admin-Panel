@@ -15,17 +15,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
         // Check if the role already exists in the database
-        $stmt = $conn->prepare("SELECT COUNT(*) FROM roles_permissions WHERE role = :role");
+        $stmt = $conn->prepare("SELECT COUNT(*) FROM role_permissions WHERE role = :role");
         $stmt->bindParam(':role', $role);
         $stmt->execute();
         $role_exists = $stmt->fetchColumn();
 
         if ($role_exists) {
             // Update the existing role's permissions
-            $stmt = $conn->prepare("UPDATE roles_permissions SET permissions = :permissions WHERE role = :role");
+            $stmt = $conn->prepare("UPDATE role_permissions SET permissions = :permissions WHERE role = :role");
         } else {
             // Insert new role with permissions
-            $stmt = $conn->prepare("INSERT INTO roles_permissions (role, permissions) VALUES (:role, :permissions)");
+            $stmt = $conn->prepare("INSERT INTO role_permissions (role, permissions) VALUES (:role, :permissions)");
         }
 
         $stmt->bindParam(':role', $role);

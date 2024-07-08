@@ -15,16 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
         // Fetch data based on analytics type
-        if ($analytics_type == 'user_activity') {
-            $query = "SELECT * FROM users WHERE date BETWEEN :start_date AND :end_date";
-        } elseif ($analytics_type == 'course_performance') {
-            $query = "SELECT * FROM courses WHERE date BETWEEN :start_date AND :end_date";
-        } elseif ($analytics_type == 'department_summary') {
+        if ($analytics_type == 'department_summary') {
             $query = "SELECT * FROM departments WHERE created_at BETWEEN :start_date AND :end_date";
         } elseif ($analytics_type == 'event_summary') {
             $query = "SELECT * FROM events WHERE event_date BETWEEN :start_date AND :end_date";
-        } elseif ($analytics_type == 'login_statistics') {
-            $query = "SELECT * FROM admins WHERE login_date BETWEEN :start_date AND :end_date";
         }
 
         $stmt = $conn->prepare($query);

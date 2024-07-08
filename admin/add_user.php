@@ -1,4 +1,6 @@
-<?php include '../includes/header.php'; ?>
+<?php include '../includes/header.php'; 
+include '../includes/session_check.php';
+?>
 <h2>Add New User</h2>
 <form action="add_user.php" method="POST">
     <label for="username">Username:</label>

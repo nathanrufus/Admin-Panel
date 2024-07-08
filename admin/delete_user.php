@@ -1,5 +1,7 @@
 <?php
 include '../includes/db.php';
+include '../includes/session_check.php';
+
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];

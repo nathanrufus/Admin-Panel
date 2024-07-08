@@ -4,6 +4,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Include Dompdf autoloader
+require '../vendor/autoload.php';
+use Dompdf\Dompdf;
+
 include '../includes/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -16,14 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
         // Fetch data based on report type
-        if ($report_type == 'user_activity') {
-            $query = "SELECT * FROM users WHERE date BETWEEN :start_date AND :end_date";
-        } elseif ($report_type == 'course_performance') {
-            $query = "SELECT * FROM courses WHERE date BETWEEN :start_date AND :end_date";
-        } elseif ($report_type == 'department_summary') {
+        if ($report_type == 'department_summary') {
             $query = "SELECT * FROM departments WHERE created_at BETWEEN :start_date AND :end_date";
         } elseif ($report_type == 'event_summary') {
             $query = "SELECT * FROM events WHERE event_date BETWEEN :start_date AND :end_date";
+        } else {
+            throw new Exception("Invalid report type.");
         }
 
         $stmt = $conn->prepare($query);
@@ -32,12 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        if (empty($data)) {
+            throw new Exception("No data found for the given criteria.");
+        }
+
         // Generate report based on format
         if ($format == 'pdf') {
             // Generate PDF report
-            require '../vendor/autoload.php';
-            use Dompdf\Dompdf;
-
             $dompdf = new Dompdf();
             $html = '<h1>' . ucfirst($report_type) . ' Report</h1>';
             $html .= '<table border="1"><tr>';
@@ -92,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             fclose($output);
         }
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
 

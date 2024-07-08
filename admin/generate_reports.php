@@ -4,8 +4,6 @@
     <!-- Report Type -->
     <label for="report_type">Report Type:</label>
     <select id="report_type" name="report_type" required>
-        <option value="user_activity">User Activity</option>
-        <option value="course_performance">Course Performance</option>
         <option value="department_summary">Department Summary</option>
         <option value="event_summary">Event Summary</option>
     </select>

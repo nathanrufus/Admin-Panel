@@ -4,11 +4,8 @@
     <!-- Analytics Type -->
     <label for="analytics_type">Analytics Type:</label>
     <select id="analytics_type" name="analytics_type" required>
-        <option value="user_activity">User Activity</option>
-        <option value="course_performance">Course Performance</option>
         <option value="department_summary">Department Summary</option>
         <option value="event_summary">Event Summary</option>
-        <option value="login_statistics">Login Statistics</option>
     </select>
     
     <!-- Date Range -->

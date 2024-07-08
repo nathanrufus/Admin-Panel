@@ -1,5 +1,4 @@
 <?php
-// login.php
 session_start();
 require_once 'includes/db.php';
 
@@ -12,12 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $conn->prepare("SELECT * FROM admins WHERE username = :username");
     $stmt->bindParam(':username', $username);
     $stmt->execute();
-    $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($admin && password_verify($password, $admin['password'])) {
-        $_SESSION['admin_id'] = $admin['id'];
-        $_SESSION['username'] = $admin['username'];
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
         header('Location: index.php');
+        exit;
     } else {
         $message = 'Invalid username or password';
     }
